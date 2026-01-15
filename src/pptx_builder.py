@@ -19,13 +19,16 @@ logger = get_logger("pptx_builder")
 
 
 class Colors:
-    """デザイン仕様に基づくカラーパレット"""
-    PRIMARY = RGBColor(0x2B, 0x6C, 0xB0)      # 青 - 見出し・アクセント
-    SECONDARY = RGBColor(0x4A, 0x55, 0x68)    # グレー - 本文
-    BACKGROUND = RGBColor(0xFF, 0xFF, 0xFF)   # 白
-    ACCENT_BG = RGBColor(0xEB, 0xF8, 0xFF)    # 薄い青 - ボックス背景
-    BORDER = RGBColor(0xE2, 0xE8, 0xF0)       # 薄いグレー - 境界線
-    ALERT = RGBColor(0xC5, 0x30, 0x30)        # 赤 - 警告
+    """配色パレット定義 (Premium/Official Style)"""
+    PRIMARY = RGBColor(0, 51, 102)       # Deep Navy (信頼感)
+    SECONDARY = RGBColor(204, 204, 204)  # Light Gray
+    ACCENT = RGBColor(184, 134, 11)      # Gold (高級感・強調)
+    ACCENT_DARK = RGBColor(197, 48, 48)  # Red (警告・特に重要な強調)
+    TEXT_MAIN = RGBColor(51, 51, 51)     # Dark Gray
+    TEXT_LIGHT = RGBColor(119, 119, 119) # Medium Gray
+    BACKGROUND = RGBColor(247, 249, 252) # Very Light Blue-Gray (全体の背景)
+    CARD_BG = RGBColor(255, 255, 255)    # White (カード背景)
+    BORDER = RGBColor(226, 232, 240)     # Border Color
 
     @staticmethod
     def from_hex(hex_color: str) -> RGBColor:
@@ -405,41 +408,96 @@ def render_header(slide, header_data: dict):
         )
 
 
-def render_section(slide, section_data: dict):
-    """セクションを描画"""
-    section_type = section_data.get("type", "text_block")
+def render_card_background(slide, x_mm, y_mm, w_mm, h_mm):
+    """セクションの背景カードを描画（影付き・角丸）"""
+    padding = 2 # カードとコンテンツの隙間調整用（視覚的）
+    
+    # カード本体
+    shape = slide.shapes.add_shape(
+        MSO_SHAPE.ROUNDED_RECTANGLE,
+        Mm(x_mm), Mm(y_mm), Mm(w_mm), Mm(h_mm)
+    )
+    
+    # 塗りつぶし（白）
+    fill = shape.fill
+    fill.solid()
+    fill.fore_color.rgb = Colors.CARD_BG
+    
+    # 枠線（薄いグレー）
+    line = shape.line
+    line.color.rgb = Colors.BORDER
+    line.width = Pt(1.0)
+    
+    # 影設定（簡易的）
+    # python-pptxで詳細な影設定は難しいため、Shapeの効果としての影は制限があるが
+    # ここではスタイル調整にとどめる（影設定は複雑なため、立体的な枠線で代用も検討）
+    
+    # ヘッダー背景（カード上部）
+    # タイトル部分だけ色を変えるなどの装飾用（オプション）
 
-    # ヘッダー描画
-    header = section_data.get("header", {})
-    if header.get("text"):
-        add_section_header(
-            slide,
-            header["text"],
-            header["x_mm"],
-            header["y_mm"],
-            header["width_mm"]
+def render_section(slide, section: dict):
+    """
+    セクションを描画するディスパッチャー
+    """
+    s_type = section.get("type", "text")
+    content = section.get("content", {})
+    rect = section.get("rect", {}) # layout_engineで計算された矩形
+    
+    if not rect:
+        return
+
+    x, y, w, h = rect["x"], rect["y"], rect["width"], rect["height"]
+    
+    # --- カード背景描画 ---
+    render_card_background(slide, x, y, w, h)
+    
+    # カード内パディング
+    padding_x = 5
+    padding_y = 5
+    content_x = x + padding_x
+    content_y = y + padding_y
+    content_w = w - (padding_x * 2)
+    # content_h は中身次第
+    
+    # セクションヘッダー描画
+    header_text = section.get("header", "")
+    if header_text:
+        # ヘッダーボックス
+        textbox = slide.shapes.add_textbox(
+            Mm(content_x), Mm(content_y), Mm(content_w), Mm(10)
         )
+        tf = textbox.text_frame
+        tf.word_wrap = True
+        p = tf.paragraphs[0]
+        # ヘッダーは太字・プライマリカラー
+        apply_text_style(p, header_text, Pt(14), Colors.PRIMARY, is_bold=True)
+        
+        # ヘッダー下の余白
+        content_y += 12 
 
-    # タイプ別描画
-    if section_type == "bullets":
-        render_bullets(slide, section_data)
-    elif section_type == "table":
-        render_table(slide, section_data)
-    elif section_type == "flowchart":
-        render_flowchart(slide, section_data)
-    elif section_type == "kpi_box":
-        render_kpi_box(slide, section_data)
+    # コンテンツ種別ごとの描画
+    # 座標系をパディング適用後にシフトして渡す
+    content_rect = {"x": content_x, "y": content_y, "width": content_w, "height": h - (content_y - y) - padding_y} # 高さ概算
+
+    if s_type == "bullets":
+        render_bullets(slide, content, content_rect)
+    elif s_type == "table":
+        render_table(slide, content, content_rect)
+    elif s_type == "flowchart":
+        render_flowchart(slide, content, content_rect)
+    elif s_type == "kpi_box":
+        render_kpi_box(slide, content, content_rect)
     else:
-        render_text_block(slide, section_data)
+        # default text block
+        render_text_block(slide, content, content_rect)
 
 
-def render_bullets(slide, data: dict):
+def render_bullets(slide, data: dict, rect: dict):
     """箇条書きを描画"""
     items = data.get("items", [])
     if not items:
         return
 
-    first_item = items[0]
     x_mm = first_item.get("x_mm", 20)
     y_mm = first_item.get("y_mm", 50)
     width_mm = first_item.get("width_mm", 180)
