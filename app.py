@@ -353,42 +353,49 @@ def process_generation(memo_text: str):
 
 def render_guide_modal():
     """使い方ガイドモーダルの表示"""
+    # 閉じるボタンの処理（モーダル表示前にチェック）
+    if st.session_state.get("close_modal_clicked", False):
+        st.session_state["show_guide_modal"] = False
+        st.session_state["close_modal_clicked"] = False
+        st.rerun()
+
     modal = Modal(title="OnePaperSlide ユーザーガイド", key="guide_modal", max_width=700)
     
     # セッション状態でモーダル表示制御
     if st.session_state.get("show_guide_modal", False):
-        # 閉じる処理のためにopen()の戻り値を受け取ることはできない(streamlit-modalの仕様)
-        # しかしopen()を呼ぶことでコンテキストマネージャが使える
         with modal.container():
-            st.markdown("""
-            ### 🚀 3ステップで資料作成
-            
-            <div class="usage-step">
-                <h4><b>Step 1: メモを入力</b></h4>
-                <p>提案内容、課題、解決策などを箇条書きや文章で自由に貼り付けてください。</p>
-            </div>
-            
-            <div class="usage-step">
-                <h4><b>Step 2: 設定を確認</b></h4>
-                <p>サイドバーでAIモデルを選択します。テンプレートは「自動選択」がおすすめです。</p>
-            </div>
-            
-            <div class="usage-step">
-                <h4><b>Step 3: 生成 & ダウンロード</b></h4>
-                <p>「OnePaperSlideを作成する」ボタンをクリックし、完成したPPTXを保存します。</p>
-            </div>
-            
-            <hr>
-            
-            ### 💡 Tips
-            - 情報量が多い場合は、AIが自動的に要約します。
-            - プレビュー画面で構成を確認できます。
-            """, unsafe_allow_html=True)
-            
-            # 閉じるボタン（自前で実装）
-            # if st.button("閉じる"):
-            #    st.session_state["show_guide_modal"] = False
-            #    st.rerun()
+            # スクロール可能なコンテナでラップ
+            with st.container():
+                st.markdown("""
+                ### 🚀 3ステップで資料作成
+                
+                <div class="usage-step">
+                    <h4><b>Step 1: メモを入力</b></h4>
+                    <p>提案内容、課題、解決策などを箇条書きや文章で自由に貼り付けてください。</p>
+                </div>
+                
+                <div class="usage-step">
+                    <h4><b>Step 2: 設定を確認</b></h4>
+                    <p>サイドバーでAIモデルを選択します。テンプレートは「自動選択」がおすすめです。</p>
+                </div>
+                
+                <div class="usage-step">
+                    <h4><b>Step 3: 生成 & ダウンロード</b></h4>
+                    <p>「OnePaperSlideを作成する」ボタンをクリックし、完成したPPTXを保存します。</p>
+                </div>
+                
+                <hr>
+                
+                ### 💡 Tips
+                - **情報量**: 箇条書きだけでなく、詳細な数値や背景を含めると精度が上がります。
+                - **プレビュー**: 生成前に右側のプレビューで構成を確認できます。
+                - **エラー**: 生成に失敗する場合は、モデルを変更するか時間を置いて再試行してください。
+                """, unsafe_allow_html=True)
+                
+                st.markdown("<br>", unsafe_allow_html=True)
+                
+                # 閉じるボタン（コールバックを使用）
+                st.button("閉じる", key="close_modal_btn", type="primary", use_container_width=True, on_click=lambda: st.session_state.update({"close_modal_clicked": True}))
 
 
 def render_main_area():
