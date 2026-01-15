@@ -158,36 +158,73 @@ def estimate_section_height(section: dict) -> float:
 
 
 def _distribute_sections_default(sections: List[dict]) -> List[SectionPlacement]:
-    """デフォルトの配置ロジック（単純積み上げ）"""
+    """
+    デフォルトの配置ロジック（バランス調整版）
+    コンテンツの高さを見積もり、余ったスペースをセクション間に均等配分する
+    """
     lc = LayoutConstants
     grid = calculate_grid()
     placements = []
     
-    # カラムごとの現在Y位置を追跡
-    column_y = [
-        grid["columns"][0]["y"],
-        grid["columns"][1]["y"]
-    ]
-
+    # カラムごとのセクションリストを作成
+    col_sections = [[], []]
     for section in sections:
         col_idx = section.get("column", 0)
-        # カラムインデックスの境界チェック
-        if col_idx < 0 or col_idx >= len(grid["columns"]):
-            logger.warning(f"Invalid column index {col_idx} for section {section.get('id')}. defaulting to 0.")
+        if col_idx < 0 or col_idx >= 2:
             col_idx = 0
+        col_sections[col_idx].append(section)
 
-        estimated_height = estimate_section_height(section)
+    # 各カラムで配置計算
+    for col_idx, col_sec_list in enumerate(col_sections):
+        if not col_sec_list:
+            continue
 
-        placement = SectionPlacement(
-            section_id=section.get("id", "unknown"),
-            column=col_idx,
-            x_mm=grid["columns"][col_idx]["x"],
-            y_mm=column_y[col_idx],
-            width_mm=lc.column_width(),
-            height_mm=estimated_height
-        )
-        placements.append(placement)
-        column_y[col_idx] += estimated_height + lc.SECTION_GAP
+        # 1. 各セクションの「中身」の高さを概算
+        total_estimated_height = 0
+        sec_heights = []
+        for sec in col_sec_list:
+            h = estimate_section_height(sec)
+            sec_heights.append(h)
+            total_estimated_height += h
+
+        # 2. 利用可能な高さ
+        available_h = lc.content_area_height()
+        
+        # 3. スペース配分（Space Between）
+        # コンテンツが溢れる場合はGAPを減らす、余裕がある場合はGAPを増やす
+        num_gaps = len(col_sec_list) - 1
+        current_y = grid["columns"][col_idx]["y"]
+        
+        if total_estimated_height > available_h:
+            # 溢れる場合: 最小GAPで詰め込む（もしくははみ出す）
+            dynamic_gap = lc.SECTION_GAP
+        elif num_gaps > 0:
+            # 余裕がある場合: 余白を均等配置
+            # ただし広がりすぎないように上限を設ける（例: 30mm）
+            remaining_space = available_h - total_estimated_height
+            dynamic_gap = min(remaining_space / num_gaps, 30.0)
+        else:
+            dynamic_gap = 0 # 1つだけなら関係なし
+
+        # 4. 配置決定
+        for i, sec in enumerate(col_sec_list):
+            h = sec_heights[i]
+            
+            # 最後のセクションで、まだスペースが大幅に余っているかつ文章系なら広げる？
+            # 今回はシンプルに高さはそのままで配置位置（Y座標）だけ調整する
+            # ※カードデザインなら高さ自体を広げたほうが見栄えが良い場合もあるが
+            # まずは配置バランスを優先。
+            
+            placement = SectionPlacement(
+                section_id=sec.get("id", "unknown"),
+                column=col_idx,
+                x_mm=grid["columns"][col_idx]["x"],
+                y_mm=current_y,
+                width_mm=lc.column_width(),
+                height_mm=h
+            )
+            placements.append(placement)
+            current_y += h + dynamic_gap
 
     return placements
 
