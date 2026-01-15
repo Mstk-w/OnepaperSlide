@@ -1,158 +1,151 @@
 /* Google Fonts Import */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap');
 
-/* Global Styles - Enforcing Light Mode Visibility */
+/* Global Styles - Dark Mode Optimization */
 html, body, [class*="css"], .stMarkdown, .stText, p, div {
-    font-family: 'Inter', 'Noto Sans JP', sans-serif;
-    color: #1a202c !important; /* Force dark text for visibility */
+    font-family: 'Inter', 'Noto Sans JP', sans-serif !important;
+    color: #fafafa !important; /* Force light text */
 }
 
-/* Background */
+/* Background gradient for depth (Dark) */
 .stApp {
-    background: linear-gradient(135deg, #f5f7fa 0%, #e2e8f0 100%);
+    background: linear-gradient(135deg, #0e1117 0%, #1a1c24 100%);
     background-attachment: fixed;
 }
 
-/* Header Styling */
+/* Header Styling (Dark Glassmorphism) */
 header[data-testid="stHeader"] {
-    background: rgba(255, 255, 255, 0.95) !important;
+    background: rgba(14, 17, 23, 0.8) !important;
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid #cbd5e0;
+    border-bottom: 1px solid #262730;
 }
 
 /* Main Title Styling */
 h1 {
     font-weight: 800 !important;
-    color: #2b6cb0 !important; /* Fallback */
-    background: linear-gradient(120deg, #1a365d, #2b6cb0);
+    background: linear-gradient(120deg, #4da6ff, #99c2ff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     padding-bottom: 0.5rem;
-    text-shadow: 0px 1px 2px rgba(0,0,0,0.1);
 }
 
 h1 span {
-    -webkit-text-fill-color: #718096 !important; /* Subtitle color fix */
+    -webkit-text-fill-color: #a0aec0 !important; /* Subtitle color */
 }
 
 /* Sidebar Styling */
 section[data-testid="stSidebar"] {
-    background-color: #ffffff !important;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
-    border-right: 1px solid #e2e8f0;
+    background-color: #262730 !important;
+    border-right: 1px solid #363945;
 }
 
-section[data-testid="stSidebar"] h1, 
-section[data-testid="stSidebar"] h2, 
-section[data-testid="stSidebar"] h3, 
-section[data-testid="stSidebar"] label, 
-section[data-testid="stSidebar"] .stMarkdown {
-    color: #2d3748 !important;
-}
-
-/* Button Styling (Primary) */
+/* Button Styling (Primary) - Bright Accent */
 button[type="primary"] {
-    background: linear-gradient(90deg, #3182ce 0%, #2b6cb0 100%) !important;
+    background: linear-gradient(90deg, #3182ce 0%, #4da6ff 100%) !important;
     border: none !important;
-    border-radius: 8px !important;
-    box-shadow: 0 4px 6px rgba(44, 82, 130, 0.2) !important;
-    transition: all 0.3s ease !important;
-    color: white !important; /* Ensure button text is white */
+    color: white !important;
     font-weight: 600 !important;
-    letter-spacing: 0.5px !important;
-    padding-top: 0.6rem !important;
-    padding-bottom: 0.6rem !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3) !important;
 }
 
 button[type="primary"]:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(44, 82, 130, 0.3) !important;
-    background: linear-gradient(90deg, #4299e1 0%, #3182ce 100%) !important;
+    background: linear-gradient(90deg, #4299e1 0%, #63b3ed 100%) !important;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5) !important;
 }
 
-button[type="primary"]:active {
-    transform: translateY(0);
-}
-
-/* Text Area Styling - Critical Fix for Visibility */
+/* Text Area Styling - Dark Background, Light Text */
 textarea {
+    background-color: #1a1c24 !important;
+    color: #ffffff !important;
+    border: 1px solid #4a5568 !important;
     border-radius: 8px !important;
-    border: 2px solid #cbd5e0 !important; /* Darker border */
-    background-color: #ffffff !important; /* Solid white */
-    color: #1a202c !important; /* Dark text */
-    font-size: 1rem !important;
-    line-height: 1.6 !important;
-    padding: 1rem !important;
-    caret-color: #3182ce !important; /* Cursor color */
-    transition: box-shadow 0.2s;
 }
 
 textarea:focus {
-    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.3) !important;
-    border-color: #3182ce !important;
-    outline: none !important;
+    border-color: #4da6ff !important;
+    box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.3) !important;
 }
 
-/* Input Placeholder */
 textarea::placeholder {
-    color: #a0aec0 !important; /* Visible gray for placeholder */
-    opacity: 1 !important;
+    color: #a0aec0 !important;
+    opacity: 0.8 !important;
 }
 
-/* Expander Styling */
-.streamlit-expanderHeader {
-    background-color: white !important;
-    border-radius: 8px !important;
-    border: 1px solid #e2e8f0;
-    color: #2d3748 !important;
-    font-weight: 600 !important;
+/* Dropdown/Selectbox Styling (Crucial for visibility) */
+div[data-baseweb="select"] > div {
+    background-color: #1a1c24 !important;
+    color: #ffffff !important;
+    border-color: #4a5568 !important;
 }
 
-/* Info Box / Success Box Enhancement */
-.stAlert {
-    border-radius: 8px !important;
-    border: none !important;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05) !important;
-    background-color: white !important; /* Ensure readability on alert bg */
-    border-left: 5px solid #3182ce !important;
+ul[data-baseweb="menu"] {
+    background-color: #262730 !important;
+    border: 1px solid #4a5568 !important;
 }
 
-/* Custom Card for Preview */
-.preview-card {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    margin-bottom: 1rem;
-    border: 1px solid #e2e8f0;
+ul[data-baseweb="menu"] li {
+    background-color: #262730 !important;
+    color: #ffffff !important;
 }
 
-.preview-card h3 {
-    color: #2b6cb0 !important;
+ul[data-baseweb="menu"] li:hover,
+ul[data-baseweb="menu"] li[aria-selected="true"] {
+    background-color: #4da6ff !important;
+    color: #ffffff !important;
 }
 
-/* Modal-like usage customization */
+/* Modal Styling */
+div[data-testid="stVerticalBlock"] > div[style*="background-color: white"] {
+    background-color: #1a1c24 !important;
+    color: #fafafa !important;
+    border: 1px solid #4a5568;
+    max-height: 85vh !important;
+    overflow-y: auto !important;
+}
+
+/* Modal Content Classes */
 .usage-step {
-    background: white;
+    background: #262730;
     padding: 1rem;
     border-radius: 8px;
     margin-bottom: 0.8rem;
-    border-left: 5px solid #3182ce;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border-left: 4px solid #4da6ff;
 }
 
 .usage-step h4 {
-    color: #2c5282 !important;
+    color: #99c2ff !important;
     margin-bottom: 0.2rem !important;
 }
 
 .usage-step p {
-    color: #4a5568 !important;
+    color: #e2e8f0 !important;
     font-size: 0.95rem !important;
     margin-bottom: 0 !important;
 }
 
-/* Captions and Small Text */
-small, .stCaption {
-    color: #718096 !important;
+/* Preview Card */
+.preview-card {
+    background: #262730;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid #4a5568;
+}
+
+.preview-card h3 {
+    color: #99c2ff !important;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+    background: #0e1117;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #4a5568;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #718096;
 }
