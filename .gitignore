@@ -1,0 +1,22 @@
+# APIキー・シークレット
+.env
+.streamlit/secrets.toml
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+venv/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+
+# 生成ファイル
+*.pptx
+output/
+
+# テスト
+.coverage
+htmlcov/

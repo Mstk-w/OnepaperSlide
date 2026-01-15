@@ -1,0 +1,90 @@
+{
+  "template_id": "T2_comparison",
+  "template_name": "比較検討型",
+  "description": "選択肢の比較に適したテンプレート",
+  "slide": {
+    "width_mm": 420,
+    "height_mm": 297,
+    "background_color": "#FFFFFF"
+  },
+  "header": {
+    "height_mm": 25,
+    "elements": [
+      {
+        "type": "text",
+        "id": "title",
+        "x_mm": 15,
+        "y_mm": 10,
+        "width_mm": 300,
+        "height_mm": 15,
+        "font_size_pt": 28,
+        "font_bold": true,
+        "font_color": "#1A365D",
+        "content_key": "title"
+      }
+    ]
+  },
+  "body": {
+    "margin_top_mm": 35,
+    "margin_bottom_mm": 22,
+    "columns": 2,
+    "column_gap_mm": 10,
+    "sections": [
+      {
+        "id": "section_background",
+        "name": "背景・目的",
+        "column": 0,
+        "order": 1,
+        "preferred_type": "text_block",
+        "min_height_mm": 30,
+        "max_height_mm": 50
+      },
+      {
+        "id": "section_comparison",
+        "name": "比較表",
+        "column": 0,
+        "order": 2,
+        "preferred_type": "table",
+        "min_height_mm": 80,
+        "max_height_mm": 150
+      },
+      {
+        "id": "section_recommendation",
+        "name": "推奨案",
+        "column": 1,
+        "order": 1,
+        "preferred_type": "bullets",
+        "min_height_mm": 40,
+        "max_height_mm": 70
+      },
+      {
+        "id": "section_rationale",
+        "name": "選定根拠",
+        "column": 1,
+        "order": 2,
+        "preferred_type": "bullets",
+        "min_height_mm": 40,
+        "max_height_mm": 70
+      },
+      {
+        "id": "section_next_steps",
+        "name": "次のステップ",
+        "column": 1,
+        "order": 3,
+        "preferred_type": "flowchart",
+        "min_height_mm": 40,
+        "max_height_mm": 60
+      }
+    ]
+  },
+  "footer": {
+    "height_mm": 12,
+    "elements": []
+  },
+  "styles": {
+    "colors": {
+      "primary": "#2B6CB0",
+      "secondary": "#4A5568"
+    }
+  }
+}

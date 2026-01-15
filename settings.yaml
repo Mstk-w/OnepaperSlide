@@ -1,0 +1,78 @@
+# OnePaperSlide 設定ファイル
+# レイアウト定数とデザイン設定を外部化
+
+# スライドサイズ（A3横: 420mm × 297mm）
+slide:
+  width_mm: 420
+  height_mm: 297
+  background_color: "#FFFFFF"
+
+# 余白設定
+margins:
+  top_mm: 10
+  bottom_mm: 10
+  left_mm: 15
+  right_mm: 15
+
+# グリッド設定
+grid:
+  column_count: 2
+  column_gap_mm: 10
+  section_gap_mm: 8
+
+# ヘッダー・フッター
+header:
+  height_mm: 25
+
+footer:
+  height_mm: 12
+
+# カラーパレット
+colors:
+  primary: "#2B6CB0" # 青 - 見出し・アクセント
+  secondary: "#4A5568" # グレー - 本文
+  background: "#FFFFFF" # 白
+  accent_bg: "#EBF8FF" # 薄い青 - ボックス背景
+  border: "#E2E8F0" # 薄いグレー - 境界線
+  alert: "#C53030" # 赤 - 警告
+
+# タイポグラフィ
+typography:
+  font_family: "メイリオ"
+  sizes:
+    title: 28
+    section_header: 18
+    body: 14
+    footer: 10
+    table_header: 12
+    table_body: 11
+
+# セクション高さ推定パラメータ（mm）
+section_estimation:
+  header_height_mm: 10
+  bullet_line_height_mm: 8
+  bullet_padding_mm: 5
+  table_row_height_mm: 8
+  flowchart_horizontal_height_mm: 40
+  flowchart_vertical_step_height_mm: 25
+  kpi_box_height_mm: 35
+  text_block_line_height_mm: 6
+
+# Auto-Shrink設定
+auto_shrink:
+  min_font_size_pt: 8
+  shrink_step_pt: 1
+
+# AI設定
+ai:
+  default_model: "gemini-2.0-flash"
+  temperature: 0.3
+  top_p: 0.95
+  max_output_tokens: 8192
+  max_retries: 3
+
+# アプリケーション設定
+app:
+  max_input_chars: 10000
+  rate_limit:
+    requests_per_minute: 5

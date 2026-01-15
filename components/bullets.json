@@ -1,0 +1,25 @@
+{
+  "component_id": "bullets",
+  "name": "箇条書き",
+  "description": "要点リスト表示",
+  "default_style": {
+    "bullet_char": "・",
+    "indent_mm": 5,
+    "line_spacing_mm": 8,
+    "font_size_pt": 14,
+    "font_color": "#4A5568"
+  },
+  "content_schema": {
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 50
+        },
+        "maxItems": 8
+      }
+    }
+  }
+}

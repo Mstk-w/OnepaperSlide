@@ -1,0 +1,98 @@
+{
+  "template_id": "T3_policy_proposal",
+  "template_name": "施策提案型",
+  "description": "新規施策の説明に適したテンプレート",
+  "slide": {
+    "width_mm": 420,
+    "height_mm": 297,
+    "background_color": "#FFFFFF"
+  },
+  "header": {
+    "height_mm": 25,
+    "elements": [
+      {
+        "type": "text",
+        "id": "title",
+        "x_mm": 15,
+        "y_mm": 10,
+        "width_mm": 300,
+        "height_mm": 15,
+        "font_size_pt": 28,
+        "font_bold": true,
+        "font_color": "#1A365D",
+        "content_key": "title"
+      }
+    ]
+  },
+  "body": {
+    "margin_top_mm": 35,
+    "margin_bottom_mm": 22,
+    "columns": 2,
+    "column_gap_mm": 10,
+    "sections": [
+      {
+        "id": "section_background",
+        "name": "背景",
+        "column": 0,
+        "order": 1,
+        "preferred_type": "text_block",
+        "min_height_mm": 35,
+        "max_height_mm": 60
+      },
+      {
+        "id": "section_purpose",
+        "name": "目的",
+        "column": 0,
+        "order": 2,
+        "preferred_type": "bullets",
+        "min_height_mm": 35,
+        "max_height_mm": 60
+      },
+      {
+        "id": "section_scope",
+        "name": "対象範囲",
+        "column": 0,
+        "order": 3,
+        "preferred_type": "bullets",
+        "min_height_mm": 35,
+        "max_height_mm": 60
+      },
+      {
+        "id": "section_overview",
+        "name": "施策概要",
+        "column": 1,
+        "order": 1,
+        "preferred_type": "bullets",
+        "min_height_mm": 50,
+        "max_height_mm": 90
+      },
+      {
+        "id": "section_schedule",
+        "name": "スケジュール",
+        "column": 1,
+        "order": 2,
+        "preferred_type": "table",
+        "min_height_mm": 40,
+        "max_height_mm": 70
+      },
+      {
+        "id": "section_budget",
+        "name": "予算・リソース",
+        "column": 1,
+        "order": 3,
+        "preferred_type": "table",
+        "min_height_mm": 35,
+        "max_height_mm": 55
+      }
+    ]
+  },
+  "footer": {
+    "height_mm": 12,
+    "elements": []
+  },
+  "styles": {
+    "colors": {
+      "primary": "#2B6CB0"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(where:*)",
+      "Bash(code --version)",
+      "Bash(dir:*)",
+      "Bash(python:*)",
+      "Bash(set PYTHONIOENCODING=utf-8:*)",
+      "Bash(chcp 65001)",
+      "Bash(find:*)"
+    ]
+  }
+}

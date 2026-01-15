@@ -1,0 +1,32 @@
+{
+  "component_id": "table",
+  "name": "表・マトリックス",
+  "description": "比較・一覧表示",
+  "default_style": {
+    "header_bg_color": "#2B6CB0",
+    "header_font_color": "#FFFFFF",
+    "header_font_size_pt": 12,
+    "body_font_size_pt": 11,
+    "row_height_mm": 8,
+    "alternate_row_color": "#EBF8FF",
+    "border_color": "#E2E8F0"
+  },
+  "content_schema": {
+    "type": "object",
+    "properties": {
+      "columns": {
+        "type": "array",
+        "items": {"type": "string"},
+        "maxItems": 5
+      },
+      "rows": {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "maxItems": 10
+      }
+    }
+  }
+}

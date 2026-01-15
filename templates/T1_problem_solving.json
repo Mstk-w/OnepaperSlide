@@ -1,0 +1,140 @@
+{
+  "template_id": "T1_problem_solving",
+  "template_name": "問題解決型",
+  "description": "課題解決の提案に適したテンプレート",
+  "slide": {
+    "width_mm": 420,
+    "height_mm": 297,
+    "background_color": "#FFFFFF"
+  },
+  "header": {
+    "height_mm": 25,
+    "elements": [
+      {
+        "type": "text",
+        "id": "title",
+        "x_mm": 15,
+        "y_mm": 10,
+        "width_mm": 300,
+        "height_mm": 15,
+        "font_size_pt": 28,
+        "font_name": "メイリオ",
+        "font_bold": true,
+        "font_color": "#1A365D",
+        "content_key": "title"
+      },
+      {
+        "type": "text",
+        "id": "subtitle",
+        "x_mm": 15,
+        "y_mm": 26,
+        "width_mm": 200,
+        "height_mm": 8,
+        "font_size_pt": 12,
+        "font_color": "#4A5568",
+        "content_key": "subtitle"
+      },
+      {
+        "type": "text",
+        "id": "date",
+        "x_mm": 340,
+        "y_mm": 10,
+        "width_mm": 65,
+        "height_mm": 8,
+        "font_size_pt": 10,
+        "font_color": "#718096",
+        "alignment": "right",
+        "content_key": "date"
+      }
+    ]
+  },
+  "body": {
+    "margin_top_mm": 35,
+    "margin_bottom_mm": 22,
+    "columns": 2,
+    "column_gap_mm": 10,
+    "sections": [
+      {
+        "id": "section_current",
+        "name": "現状",
+        "column": 0,
+        "order": 1,
+        "preferred_type": "bullets",
+        "min_height_mm": 35,
+        "max_height_mm": 70
+      },
+      {
+        "id": "section_issues",
+        "name": "課題",
+        "column": 0,
+        "order": 2,
+        "preferred_type": "bullets",
+        "min_height_mm": 35,
+        "max_height_mm": 70
+      },
+      {
+        "id": "section_causes",
+        "name": "原因分析",
+        "column": 0,
+        "order": 3,
+        "preferred_type": "table",
+        "min_height_mm": 40,
+        "max_height_mm": 80
+      },
+      {
+        "id": "section_solution",
+        "name": "解決策",
+        "column": 1,
+        "order": 1,
+        "preferred_type": "bullets",
+        "min_height_mm": 40,
+        "max_height_mm": 80
+      },
+      {
+        "id": "section_plan",
+        "name": "実施計画",
+        "column": 1,
+        "order": 2,
+        "preferred_type": "table",
+        "min_height_mm": 35,
+        "max_height_mm": 60
+      },
+      {
+        "id": "section_effect",
+        "name": "期待効果",
+        "column": 1,
+        "order": 3,
+        "preferred_type": "kpi_box",
+        "min_height_mm": 40,
+        "max_height_mm": 70
+      }
+    ]
+  },
+  "footer": {
+    "height_mm": 12,
+    "elements": [
+      {
+        "type": "text",
+        "id": "footer_note",
+        "x_mm": 15,
+        "y_mm": 275,
+        "width_mm": 390,
+        "height_mm": 10,
+        "font_size_pt": 10,
+        "font_color": "#718096",
+        "content_key": "footer_note"
+      }
+    ]
+  },
+  "styles": {
+    "colors": {
+      "primary": "#2B6CB0",
+      "secondary": "#4A5568",
+      "accent_bg": "#EBF8FF",
+      "border": "#E2E8F0"
+    },
+    "fonts": {
+      "family": "メイリオ"
+    }
+  }
+}

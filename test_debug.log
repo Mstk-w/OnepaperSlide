@@ -1,0 +1,12 @@
+============================= test session starts =============================
+platform win32 -- Python 3.14.2, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\ma235\AppData\Local\Python\pythoncore-3.14-64\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\ma235\OneDrive\デスクトップ\OnepaperSlide
+configfile: pytest.ini
+plugins: anyio-4.12.0
+collecting ... collected 6 items / 4 deselected / 2 selected
+
+tests/test_integration.py::TestIntegration::test_content_post_processing PASSED [ 50%]
+tests/test_integration.py::TestIntegration::test_config_override PASSED  [100%]
+
+======================= 2 passed, 4 deselected in 0.96s =======================

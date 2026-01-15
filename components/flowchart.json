@@ -1,0 +1,27 @@
+{
+  "component_id": "flowchart",
+  "name": "フローチャート",
+  "description": "プロセス・手順表示",
+  "default_style": {
+    "step_bg_color": "#EBF8FF",
+    "step_border_color": "#2B6CB0",
+    "arrow_color": "#2B6CB0",
+    "font_size_pt": 12,
+    "step_padding_mm": 5
+  },
+  "content_schema": {
+    "type": "object",
+    "properties": {
+      "steps": {
+        "type": "array",
+        "items": {"type": "string", "maxLength": 30},
+        "maxItems": 5
+      },
+      "direction": {
+        "type": "string",
+        "enum": ["h", "v"],
+        "default": "h"
+      }
+    }
+  }
+}

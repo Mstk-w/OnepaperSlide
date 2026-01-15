@@ -1,0 +1,66 @@
+============================= test session starts =============================
+platform win32 -- Python 3.14.2, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\ma235\AppData\Local\Python\pythoncore-3.14-64\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\ma235\OneDrive\デスクトップ\OnepaperSlide
+configfile: pytest.ini
+plugins: anyio-4.12.0
+collecting ... collected 6 items
+
+tests/test_integration.py::TestIntegration::test_full_pipeline_success PASSED [ 16%]
+tests/test_integration.py::TestIntegration::test_pipeline_invalid_ai_response FAILED [ 33%]
+tests/test_integration.py::TestIntegration::test_pipeline_empty_input PASSED [ 50%]
+tests/test_integration.py::TestIntegration::test_retry_mechanism FAILED  [ 66%]
+tests/test_integration.py::TestIntegration::test_content_post_processing PASSED [ 83%]
+tests/test_integration.py::TestIntegration::test_config_override PASSED  [100%]
+
+================================== FAILURES ===================================
+______________ TestIntegration.test_pipeline_invalid_ai_response ______________
+src\ai_service.py:296: in generate_structured_content
+    return client.generate(memo_text, template_id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\AppData\Local\Python\pythoncore-3.14-64\Lib\unittest\mock.py:1175: in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\AppData\Local\Python\pythoncore-3.14-64\Lib\unittest\mock.py:1179: in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\AppData\Local\Python\pythoncore-3.14-64\Lib\unittest\mock.py:1234: in _execute_mock_call
+    raise effect
+E   ai_service.AIServiceError: Invalid AI output
+
+During handling of the above exception, another exception occurred:
+tests\test_integration.py:57: in test_pipeline_invalid_ai_response
+    generate_structured_content(sample_memo_text, api_key="dummy")
+src\ai_service.py:302: in generate_structured_content
+    time.sleep(2 ** attempt)  # 指数バックオフ
+    ^^^^
+E   NameError: name 'time' is not defined. Did you forget to import 'time'?
+------------------------------ Captured log call ------------------------------
+WARNING  onepaperslide.ai_service:ai_service.py:299 Attempt 1 failed: Invalid AI output
+____________________ TestIntegration.test_retry_mechanism _____________________
+src\ai_service.py:296: in generate_structured_content
+    return client.generate(memo_text, template_id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\AppData\Local\Python\pythoncore-3.14-64\Lib\unittest\mock.py:1175: in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\AppData\Local\Python\pythoncore-3.14-64\Lib\unittest\mock.py:1179: in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\AppData\Local\Python\pythoncore-3.14-64\Lib\unittest\mock.py:1238: in _execute_mock_call
+    raise result
+E   Exception: API Error 1
+
+During handling of the above exception, another exception occurred:
+tests\test_integration.py:86: in test_retry_mechanism
+    result = generate_structured_content(
+src\ai_service.py:302: in generate_structured_content
+    time.sleep(2 ** attempt)  # 指数バックオフ
+    ^^^^
+E   NameError: name 'time' is not defined. Did you forget to import 'time'?
+------------------------------ Captured log call ------------------------------
+WARNING  onepaperslide.ai_service:ai_service.py:299 Attempt 1 failed: API Error 1
+=========================== short test summary info ===========================
+FAILED tests/test_integration.py::TestIntegration::test_pipeline_invalid_ai_response - NameError: name 'time' is not defined. Did you forget to import 'time'?
+FAILED tests/test_integration.py::TestIntegration::test_retry_mechanism - NameError: name 'time' is not defined. Did you forget to import 'time'?
+========================= 2 failed, 4 passed in 1.30s =========================

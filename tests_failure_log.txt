@@ -1,0 +1,91 @@
+============================= test session starts =============================
+platform win32 -- Python 3.14.2, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\ma235\AppData\Local\Python\pythoncore-3.14-64\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\ma235\OneDrive\デスクトップ\OnepaperSlide
+configfile: pytest.ini
+plugins: anyio-4.12.0
+collecting ... collected 41 items
+
+tests/test_ai_service.py::TestParseResponse::test_parse_valid_json PASSED [  2%]
+tests/test_ai_service.py::TestParseResponse::test_parse_json_in_code_block PASSED [  4%]
+tests/test_ai_service.py::TestParseResponse::test_parse_invalid_json_raises PASSED [  7%]
+tests/test_ai_service.py::TestValidateOutput::test_valid_output PASSED   [  9%]
+tests/test_ai_service.py::TestValidateOutput::test_missing_title PASSED  [ 12%]
+tests/test_ai_service.py::TestValidateOutput::test_invalid_template PASSED [ 14%]
+tests/test_ai_service.py::TestFixOutput::test_normalize_template_id PASSED [ 17%]
+tests/test_ai_service.py::TestFixOutput::test_add_missing_section_id PASSED [ 19%]
+tests/test_ai_service.py::TestFixOutput::test_add_default_column PASSED  [ 21%]
+tests/test_ai_service.py::TestBuildPrompt::test_includes_memo PASSED     [ 24%]
+tests/test_ai_service.py::TestBuildPrompt::test_includes_template_id PASSED [ 26%]
+tests/test_ai_service.py::TestSuggestTemplate::test_suggest_t4_for_flow PASSED [ 29%]
+tests/test_ai_service.py::TestSuggestTemplate::test_suggest_t2_for_comparison PASSED [ 31%]
+tests/test_ai_service.py::TestSuggestTemplate::test_suggest_t1_as_default PASSED [ 34%]
+tests/test_integration.py::TestIntegration::test_full_pipeline_success PASSED [ 36%]
+tests/test_integration.py::TestIntegration::test_pipeline_invalid_ai_response PASSED [ 39%]
+tests/test_integration.py::TestIntegration::test_pipeline_empty_input PASSED [ 41%]
+tests/test_integration.py::TestIntegration::test_retry_mechanism PASSED  [ 43%]
+tests/test_layout_engine.py::TestLayoutConstants::test_slide_dimensions PASSED [ 46%]
+tests/test_layout_engine.py::TestLayoutConstants::test_content_width PASSED [ 48%]
+tests/test_layout_engine.py::TestLayoutConstants::test_column_width PASSED [ 51%]
+tests/test_layout_engine.py::TestCalculateGrid::test_grid_has_required_keys PASSED [ 53%]
+tests/test_layout_engine.py::TestCalculateGrid::test_columns_count PASSED [ 56%]
+tests/test_layout_engine.py::TestCalculateGrid::test_columns_no_overlap PASSED [ 58%]
+tests/test_layout_engine.py::TestEstimateSectionHeight::test_bullets_height PASSED [ 60%]
+tests/test_layout_engine.py::TestEstimateSectionHeight::test_table_height PASSED [ 63%]
+tests/test_layout_engine.py::TestEstimateSectionHeight::test_flowchart_height_horizontal PASSED [ 65%]
+tests/test_layout_engine.py::TestProcessLayout::test_returns_dict PASSED [ 68%]
+tests/test_layout_engine.py::TestProcessLayout::test_has_required_keys PASSED [ 70%]
+tests/test_layout_engine.py::TestProcessLayout::test_slide_dimensions PASSED [ 73%]
+tests/test_layout_engine.py::TestProcessLayout::test_sections_have_coordinates PASSED [ 75%]
+tests/test_pptx_builder.py::TestBuildPptx::test_returns_bytes FAILED     [ 78%]
+tests/test_pptx_builder.py::TestBuildPptx::test_valid_pptx FAILED        [ 80%]
+tests/test_pptx_builder.py::TestBuildPptx::test_slide_size FAILED        [ 82%]
+tests/test_pptx_builder.py::TestBuildPptx::test_has_shapes FAILED        [ 85%]
+tests/test_pptx_builder.py::TestAddTextBox::test_adds_shape PASSED       [ 87%]
+tests/test_pptx_builder.py::TestAddTextBox::test_text_content PASSED     [ 90%]
+tests/test_pptx_builder.py::TestColors::test_primary_color PASSED        [ 92%]
+tests/test_pptx_builder.py::TestColors::test_from_hex PASSED             [ 95%]
+tests/test_pptx_builder.py::TestFonts::test_font_family PASSED           [ 97%]
+tests/test_pptx_builder.py::TestFonts::test_font_sizes PASSED            [100%]
+
+================================== FAILURES ===================================
+______________________ TestBuildPptx.test_returns_bytes _______________________
+tests\test_pptx_builder.py:30: in test_returns_bytes
+    assert isinstance(result, bytes)
+E   assert False
+E    +  where False = isinstance(<_io.BytesIO object at 0x00000280C03A1BC0>, bytes)
+________________________ TestBuildPptx.test_valid_pptx ________________________
+tests\test_pptx_builder.py:35: in test_valid_pptx
+    prs = Presentation(BytesIO(result))
+                       ^^^^^^^^^^^^^^^
+E   TypeError: a bytes-like object is required, not '_io.BytesIO'
+________________________ TestBuildPptx.test_slide_size ________________________
+tests\test_pptx_builder.py:41: in test_slide_size
+    prs = Presentation(BytesIO(result))
+                       ^^^^^^^^^^^^^^^
+E   TypeError: a bytes-like object is required, not '_io.BytesIO'
+________________________ TestBuildPptx.test_has_shapes ________________________
+tests\test_pptx_builder.py:48: in test_has_shapes
+    prs = Presentation(BytesIO(result))
+                       ^^^^^^^^^^^^^^^
+E   TypeError: a bytes-like object is required, not '_io.BytesIO'
+============================== warnings summary ===============================
+src\ai_service.py:6
+  C:\Users\ma235\OneDrive\デスクトップ\OnepaperSlide\src\ai_service.py:6: FutureWarning: 
+  
+  All support for the `google.generativeai` package has ended. It will no longer be receiving 
+  updates or bug fixes. Please switch to the `google.genai` package as soon as possible.
+  See README for more details:
+  
+  https://github.com/google-gemini/deprecated-generative-ai-python/blob/main/README.md
+  
+    import google.generativeai as genai
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_pptx_builder.py::TestBuildPptx::test_returns_bytes - assert False
+ +  where False = isinstance(<_io.BytesIO object at 0x00000280C03A1BC0>, bytes)
+FAILED tests/test_pptx_builder.py::TestBuildPptx::test_valid_pptx - TypeError: a bytes-like object is required, not '_io.BytesIO'
+FAILED tests/test_pptx_builder.py::TestBuildPptx::test_slide_size - TypeError: a bytes-like object is required, not '_io.BytesIO'
+FAILED tests/test_pptx_builder.py::TestBuildPptx::test_has_shapes - TypeError: a bytes-like object is required, not '_io.BytesIO'
+=================== 4 failed, 37 passed, 1 warning in 6.95s ===================
